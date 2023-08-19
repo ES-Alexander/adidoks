@@ -1,6 +1,6 @@
 {% macro docs_toc(page) %}
   {% if page.extra.toc %}
-  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  <nav class="docs-toc d-none d-xl-block col-xl-4 xr-0" aria-label="Secondary navigation">
   	<div class="page-links">
   			<h3>On this page</h3>
   			<nav id="TableOfContents">
@@ -10,7 +10,23 @@
   							{% if h1.children %}
   									<ul>
   											{% for h2 in h1.children %}
-  											<li><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a></li>
+  											<li><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
+											{% if h2.children %}
+													<ul>
+															{% for h3 in h2.children %}
+															<li><a href="{{ h3.permalink | safe }}">{{ h3.title }}</a>
+															{% if h3.children %}
+																	<ul>
+																			{% for h4 in h3.children %}
+																			<li><a href="{{ h4.permalink | safe }}">{{ h4.title }}</a></li>
+																			{% endfor %}
+																	</ul>
+															{% endif %}
+															</li>
+															{% endfor %}
+													</ul>
+											{% endif %}
+											</li>
   											{% endfor %}
   									</ul>
   							{% endif %}
